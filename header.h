@@ -17,7 +17,9 @@ typedef struct {
 
 bool headers_write(int fd, Headers *headers);
 
-char *headers_get_value(Headers *headers, char *key);
+char *header_get_value(Headers *headers, char *key);
+
+int find_crlf_index(char *buffer, int total_bytes_read);
 
 Headers *headers_read(int fd);
 

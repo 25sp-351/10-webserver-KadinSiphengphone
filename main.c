@@ -8,49 +8,11 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+
+#include "connection_handler.h"
 #define LISTEN_BACKLOG 10
 #define BUFFER_SIZE 1024
 bool V_ARG = false;
-
-void handleConnection(int *sock_fd_ptr) {
-  int sock_fd = *sock_fd_ptr;
-  free(sock_fd_ptr);
-  printf("Handling connection on %d\n", sock_fd);
-
-  char current_line[BUFFER_SIZE];
-  int line_length = 0;
-  char buffer[BUFFER_SIZE];
-  while (1) {
-
-    int bytes_read = read(sock_fd, buffer, sizeof(buffer));
-    if (bytes_read <= 0) {
-      printf("connection closed\n");
-      close(sock_fd);
-      break;
-    }
-
-    for (int xx = 0; xx < bytes_read; xx++) {
-      current_line[line_length] = buffer[xx];
-      line_length++;
-      if (buffer[xx] == '\n') {
-
-        write(sock_fd, current_line, line_length);
-        if (V_ARG)
-          printf("read %d bytes from connection %d : %s\n", bytes_read, sock_fd,
-                 buffer);
-
-        line_length = 0;
-      }
-    }
-  }
-  //   write(sock_fd, buffer, bytes_read);
-  //   if (V_ARG) {
-  //     printf("read %d bytes from connection %d : %s\n", bytes_read, sock_fd,
-  //            buffer);
-  //   }
-
-  printf("done with connection %d\n", sock_fd);
-}
 
 int main(int argc, char *argv[]) {
 
