@@ -1,6 +1,6 @@
 all: main
 
-OBJS = main.o request.o header.o connection_handler.o calc.o
+OBJS = main.o request.o header.o connection_handler.o calc.o response.o
 CC = gcc
 CFLAGS = -Wall
 
@@ -16,6 +16,8 @@ request.o: request.h request.c
 connection_handler.o: connection_handler.h connection_handler.c
 
 calc.o: calc.h calc.c
+
+response.o: response.h response.c
 
 clean: 
 	rm -f main $(OBJS)
