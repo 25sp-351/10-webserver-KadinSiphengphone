@@ -32,5 +32,6 @@ char *calculate_from_path(char *path) {
   char result_str[MAX_BUFFER_SIZE];
   snprintf(result_str, sizeof(result_str), "%d", result);
 
-  return strdup(result_str);
+  // return strdup(result_str);
+  return result_str;
 }
